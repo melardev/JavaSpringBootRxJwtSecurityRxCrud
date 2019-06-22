@@ -1,0 +1,24 @@
+app:
+  jwt:
+    secret: JWT_SUPER_SECRET
+
+logging:
+  level:
+    web: debug
+
+spring:
+  data:
+    mongodb:
+      database: boot_reactive_todo_jwt_webflux
+      port: 27017
+      host: localhost
+  jackson:
+    serialization:
+      indent-output: true
+
+management:
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: '*'
