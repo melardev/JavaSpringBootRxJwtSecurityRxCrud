@@ -12,6 +12,7 @@ import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.server.ServerAuthenticationEntryPoint;
 
 @Configuration
 @EnableWebFluxSecurity
@@ -36,7 +37,14 @@ public class SecurityConfig {
                 .pathMatchers(HttpMethod.OPTIONS).permitAll()
                 .pathMatchers("/**").permitAll()
                 .and()
+                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())
+                .and()
                 .build();
+    }
+
+    @Bean("appAuthenticationEntryPoint") // rename this bean since a default already exists
+    ServerAuthenticationEntryPoint authenticationEntryPoint() {
+        return new AuthenticationEntryPoint();
     }
 
     @Bean
